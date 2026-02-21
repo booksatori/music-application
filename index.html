@@ -704,6 +704,10 @@
           </div>
           <div class="mono">© <span id="year"></span> • Application Page</div>
         </div>
+<form id="appForm" action="YOUR_ENDPOINT_URL" method="POST"> <input name="artist" value="Satorimadeit"> 
+      <input name="email" value="beatbysatori@gmail.com"> <!-- add all your inputs with name attributes --> <button type="submit">Submit</button> </form>
+
+        
       </footer>
     </div>
   </main>
@@ -835,9 +839,6 @@
       // Example: Formspree endpoint, Google Apps Script, or your own API.
       // For now we simulate success and provide a copy-to-send message.
 
-      <form id="appForm" action="YOUR_ENDPOINT_URL" method="POST"> <input name="artist" value="Satorimadeit"> 
-      <input name="email" value="beatbysatori@gmail.com"> <!-- add all your inputs with name attributes --> <button type="submit">Submit</button> </form>
-
       await new Promise(r => setTimeout(r, 700));
 
       const payload = serializePretty();
@@ -855,5 +856,6 @@
   </script>
 </body>
 </html>
+
 
 
