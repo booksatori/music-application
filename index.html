@@ -1,0 +1,859 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Satorimadeit — Production Partnership Application</title>
+  <meta name="description" content="Apply to work with Satorimadeit for mixing, mastering, or full production partnership. A short application to see if we’re a fit." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      /* Aesthetic: modern "studio noir" with warm brass accents */
+      --bg0:#07070a;
+      --bg1:#0b0c10;
+      --ink:#f3f1ea;
+      --muted:rgba(243,241,234,.72);
+      --faint:rgba(243,241,234,.10);
+      --stroke:rgba(243,241,234,.14);
+      --stroke2:rgba(243,241,234,.22);
+
+      --accent:#d7b36a; /* warm brass */
+      --accent2:#8ee3ff; /* cool console light */
+      --danger:#ff5a7a;
+      --ok:#6ef3b1;
+
+      --shadow: 0 18px 55px rgba(0,0,0,.55);
+      --shadow2: 0 10px 22px rgba(0,0,0,.32);
+
+      --r-lg: 22px;
+      --r-md: 16px;
+      --r-sm: 12px;
+
+      --max: 1120px;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      color:var(--ink);
+      background:
+        radial-gradient(1200px 900px at 10% 10%, rgba(215,179,106,.18), transparent 52%),
+        radial-gradient(900px 700px at 80% 22%, rgba(142,227,255,.12), transparent 55%),
+        radial-gradient(900px 700px at 60% 90%, rgba(255,90,122,.08), transparent 60%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      font-family: "Instrument Sans", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      letter-spacing: .01em;
+      overflow-x:hidden;
+    }
+
+    a{ color:inherit; text-decoration:none; }
+    .wrap{ width:min(var(--max), calc(100% - 48px)); margin-inline:auto; }
+
+    /* Top nav */
+    header{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(7,7,10,.78), rgba(7,7,10,.45));
+      border-bottom:1px solid rgba(243,241,234,.10);
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:16px 0;
+      gap:16px;
+    }
+    .brand{
+      display:flex; align-items:baseline; gap:12px;
+      min-width: 220px;
+    }
+    .brand .name{
+      font-family: "Bebas Neue", sans-serif;
+      font-size: 28px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      line-height:1;
+    }
+    .brand .tag{
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing:.14em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .nav .actions{
+      display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .pill{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:10px 12px;
+      border-radius: 999px;
+      border:1px solid rgba(243,241,234,.16);
+      background: rgba(243,241,234,.04);
+      box-shadow: var(--shadow2);
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .pill b{ color: var(--ink); font-weight:650; }
+    .btn{
+      appearance:none;
+      border:0;
+      cursor:pointer;
+      border-radius: 999px;
+      padding: 12px 14px;
+      font-weight: 650;
+      letter-spacing:.02em;
+      background: linear-gradient(135deg, rgba(215,179,106,1), rgba(215,179,106,.76));
+      color: #17140b;
+      box-shadow: 0 14px 34px rgba(215,179,106,.18);
+      transition: transform .18s ease, filter .18s ease, box-shadow .18s ease;
+    }
+    .btn:hover{ transform: translateY(-1px); filter:saturate(1.05); box-shadow: 0 18px 44px rgba(215,179,106,.22); }
+    .btn:active{ transform: translateY(0px) scale(.99); }
+    .btn.secondary{
+      background: rgba(243,241,234,.05);
+      color: var(--ink);
+      border:1px solid rgba(243,241,234,.18);
+      box-shadow: none;
+    }
+    .btn.secondary:hover{ background: rgba(243,241,234,.07); box-shadow: var(--shadow2); }
+
+    /* Hero */
+    .hero{
+      padding: clamp(28px, 5vw, 56px) 0 18px;
+    }
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: clamp(16px, 4vw, 40px);
+      align-items: start;
+    }
+    @media (max-width: 920px){
+      .heroGrid{ grid-template-columns: 1fr; }
+      .brand{ min-width: unset; }
+    }
+
+    .kicker{
+      display:inline-flex; align-items:center; gap:10px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: rgba(243,241,234,.04);
+      border: 1px solid rgba(243,241,234,.12);
+      color: var(--muted);
+      width: fit-content;
+    }
+    .dot{
+      width:10px; height:10px; border-radius:999px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.9), rgba(255,255,255,.2) 45%, rgba(255,255,255,.0) 70%),
+                  linear-gradient(135deg, var(--accent2), var(--accent));
+      box-shadow: 0 0 0 4px rgba(142,227,255,.12);
+    }
+    h1{
+      margin: 14px 0 10px;
+      font-family:"Bebas Neue", sans-serif;
+      font-size: clamp(44px, 6vw, 82px);
+      line-height: .95;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .sub{
+      margin:0;
+      color: var(--muted);
+      font-size: clamp(16px, 1.6vw, 18px);
+      line-height: 1.6;
+      max-width: 62ch;
+    }
+
+    .heroAside{
+      position:relative;
+      border-radius: var(--r-lg);
+      border:1px solid rgba(243,241,234,.14);
+      background: linear-gradient(180deg, rgba(243,241,234,.05), rgba(243,241,234,.03));
+      box-shadow: var(--shadow);
+      padding: 18px;
+      overflow:hidden;
+    }
+    .heroAside:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(600px 280px at 20% 10%, rgba(215,179,106,.16), transparent 60%),
+        radial-gradient(520px 320px at 90% 0%, rgba(142,227,255,.12), transparent 62%),
+        radial-gradient(520px 320px at 60% 100%, rgba(255,90,122,.08), transparent 60%);
+      filter: blur(0px);
+      pointer-events:none;
+    }
+    .asideInner{ position:relative; }
+    .asideTitle{
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      border-bottom: 1px solid rgba(243,241,234,.10);
+      padding-bottom: 12px;
+      margin-bottom: 12px;
+    }
+    .asideTitle h2{
+      margin:0;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing:.18em;
+      color: var(--muted);
+      font-weight: 650;
+    }
+    .meter{
+      font-size:12px;
+      color: var(--muted);
+      letter-spacing:.12em;
+      text-transform: uppercase;
+      display:flex; align-items:center; gap:10px;
+      white-space:nowrap;
+    }
+    .bar{
+      width: 110px;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(243,241,234,.10);
+      overflow:hidden;
+      border:1px solid rgba(243,241,234,.12);
+    }
+    .bar > i{
+      display:block; height:100%;
+      width: 64%;
+      background: linear-gradient(90deg, rgba(142,227,255,.9), rgba(215,179,106,.9));
+      border-radius:999px;
+      box-shadow: 0 0 0 1px rgba(0,0,0,.25) inset;
+    }
+
+    .bullets{
+      display:grid;
+      gap:10px;
+      margin: 0;
+      padding: 0;
+      list-style:none;
+      color: var(--muted);
+      line-height:1.5;
+      font-size:14px;
+    }
+    .bullets li{
+      display:flex; gap:10px; align-items:flex-start;
+      padding: 10px 10px;
+      border-radius: 12px;
+      background: rgba(0,0,0,.12);
+      border: 1px solid rgba(243,241,234,.08);
+    }
+    .check{
+      width:18px; height:18px; flex:0 0 18px; margin-top:1px;
+      border-radius: 6px;
+      background: linear-gradient(135deg, rgba(110,243,177,.95), rgba(142,227,255,.65));
+      box-shadow: 0 0 0 4px rgba(110,243,177,.08);
+    }
+
+    /* Form section */
+    main{ padding: 10px 0 60px; }
+    .panel{
+      border-radius: var(--r-lg);
+      border: 1px solid rgba(243,241,234,.14);
+      background: linear-gradient(180deg, rgba(243,241,234,.045), rgba(243,241,234,.02));
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .panelHeader{
+      padding: 18px 18px 14px;
+      border-bottom:1px solid rgba(243,241,234,.10);
+      display:flex; align-items:flex-end; justify-content:space-between; gap:14px;
+      flex-wrap:wrap;
+    }
+    .panelHeader h2{
+      margin:0;
+      font-family:"Bebas Neue", sans-serif;
+      letter-spacing:.08em;
+      font-size: 34px;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+    .panelHeader p{
+      margin:0;
+      color: var(--muted);
+      max-width: 70ch;
+      line-height:1.5;
+      font-size: 14px;
+    }
+    .panelBody{ padding: 18px; }
+
+    form{ display:grid; gap: 16px; }
+    .grid2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    @media (max-width: 720px){
+      .grid2{ grid-template-columns: 1fr; }
+    }
+
+    label{
+      display:block;
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing:.16em;
+      text-transform: uppercase;
+      margin: 0 0 8px;
+      font-weight: 650;
+    }
+    .field{
+      position:relative;
+      border-radius: var(--r-md);
+      border: 1px solid rgba(243,241,234,.14);
+      background: rgba(0,0,0,.18);
+      box-shadow: 0 1px 0 rgba(255,255,255,.03) inset;
+      transition: border-color .18s ease, transform .18s ease, background .18s ease;
+    }
+    .field:focus-within{
+      border-color: rgba(215,179,106,.55);
+      background: rgba(0,0,0,.24);
+      transform: translateY(-1px);
+    }
+    input, textarea, select{
+      width:100%;
+      padding: 14px 14px;
+      border:0;
+      outline:none;
+      background:transparent;
+      color: var(--ink);
+      font-size: 15px;
+      font-family: inherit;
+      line-height:1.35;
+    }
+    textarea{ min-height: 120px; resize: vertical; }
+    input::placeholder, textarea::placeholder{ color: rgba(243,241,234,.42); }
+    .hint{
+      margin-top: 8px;
+      font-size: 13px;
+      color: rgba(243,241,234,.62);
+      line-height:1.45;
+    }
+
+    .chips{
+      display:flex; flex-wrap:wrap; gap:8px;
+    }
+    .chip{
+      position:relative;
+      display:inline-flex; align-items:center; gap:10px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(243,241,234,.14);
+      background: rgba(243,241,234,.04);
+      color: var(--muted);
+      cursor:pointer;
+      user-select:none;
+      transition: transform .16s ease, border-color .16s ease, background .16s ease;
+    }
+    .chip:hover{ transform: translateY(-1px); border-color: rgba(243,241,234,.24); }
+    .chip input{ position:absolute; opacity:0; pointer-events:none; }
+    .chip i{
+      width: 10px; height: 10px; border-radius: 999px;
+      background: rgba(243,241,234,.18);
+      box-shadow: 0 0 0 4px rgba(243,241,234,.06);
+      transition: background .16s ease, box-shadow .16s ease;
+    }
+    .chip:has(input:checked){
+      border-color: rgba(215,179,106,.55);
+      background: rgba(215,179,106,.10);
+      color: var(--ink);
+    }
+    .chip:has(input:checked) i{
+      background: linear-gradient(135deg, var(--accent2), var(--accent));
+      box-shadow: 0 0 0 4px rgba(215,179,106,.12);
+    }
+
+    .row{
+      display:flex; gap:12px; align-items:center; justify-content:space-between;
+      flex-wrap:wrap;
+      padding-top: 4px;
+    }
+    .fine{
+      font-size: 13px;
+      color: rgba(243,241,234,.62);
+      line-height:1.45;
+      max-width: 70ch;
+    }
+    .fine a{ text-decoration: underline; text-underline-offset: 3px; }
+
+    .submitRow{
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      flex-wrap:wrap;
+      margin-top: 4px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(243,241,234,.10);
+    }
+    .status{
+      display:flex; align-items:center; gap:10px;
+      color: var(--muted);
+      font-size: 14px;
+      min-height: 22px;
+    }
+    .status .badge{
+      width:10px; height:10px; border-radius:999px;
+      background: rgba(243,241,234,.18);
+    }
+    .status.ok{ color: rgba(110,243,177,.92); }
+    .status.ok .badge{ background: rgba(110,243,177,.92); box-shadow: 0 0 0 4px rgba(110,243,177,.12); }
+    .status.err{ color: rgba(255,90,122,.92); }
+    .status.err .badge{ background: rgba(255,90,122,.92); box-shadow: 0 0 0 4px rgba(255,90,122,.12); }
+
+    /* Footer */
+    footer{
+      padding: 30px 0 50px;
+      color: rgba(243,241,234,.62);
+      font-size: 13px;
+    }
+    .footGrid{
+      display:flex; align-items:flex-start; justify-content:space-between; gap:18px;
+      flex-wrap:wrap;
+      border-top: 1px solid rgba(243,241,234,.10);
+      padding-top: 18px;
+    }
+    .mono{ font-variant-numeric: tabular-nums; letter-spacing:.08em; text-transform: uppercase; font-size: 12px; color: rgba(243,241,234,.56); }
+
+    /* reveal */
+    .reveal{ opacity:0; transform: translateY(14px); }
+    .reveal.in{ opacity:1; transform: translateY(0); transition: opacity .65s ease, transform .65s ease; }
+    @media (prefers-reduced-motion: reduce){
+      .reveal{ opacity:1; transform:none; }
+      .btn, .field{ transition:none !important; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="wrap">
+      <div class="nav">
+        <div class="brand" aria-label="Satorimadeit">
+          <div class="name">satorimadeit</div>
+          <div class="tag">Production • Mixing • Partnership</div>
+        </div>
+        <div class="actions">
+          <div class="pill" aria-label="Response time">
+            <span>Typical reply:</span> <b>24–48h</b>
+          </div>
+          <a class="btn secondary" href="#apply">Apply</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap heroGrid">
+      <div class="reveal">
+        <div class="kicker"><span class="dot" aria-hidden="true"></span><span>For independent artists building real releases</span></div>
+        <h1>Bring your vision to life — without a big studio.</h1>
+        <p class="sub">
+          This application helps me understand your sound, your goal, and what “done” means for you.
+          If we’re a fit, you’ll get a clear next step (quote + timeline), not vague promises.
+        </p>
+        <div class="row" style="margin-top:16px;">
+          <a class="btn" href="#apply">Start the application</a>
+          <div class="pill" aria-label="What happens next"><b>Next:</b>&nbsp;review → short call → plan</div>
+        </div>
+      </div>
+
+      <aside class="heroAside reveal" aria-label="What you can apply for">
+        <div class="asideInner">
+          <div class="asideTitle">
+            <h2>Projects I take</h2>
+            <div class="meter">
+              <span>Capacity</span>
+              <span class="bar" aria-hidden="true"><i></i></span>
+            </div>
+          </div>
+
+          <ul class="bullets">
+            <li><span class="check" aria-hidden="true"></span><span><b>Production partnership</b> (co-produce + arrangement + sound design)</span></li>
+            <li><span class="check" aria-hidden="true"></span><span><b>Mixing</b> (clarity, punch, translation across speakers)</span></li>
+            <li><span class="check" aria-hidden="true"></span><span><b>Mix + master</b> (release-ready loudness with movement)</span></li>
+            <li><span class="check" aria-hidden="true"></span><span><b>Vocal production</b> (comping, tuning, timing, stacks)</span></li>
+          </ul>
+
+          <p class="hint" style="margin:12px 0 0;">
+            If you’re not sure what you need, apply anyway — I’ll recommend the simplest path.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <main>
+    <div class="wrap">
+      <section id="apply" class="panel reveal" aria-labelledby="applyTitle">
+        <div class="panelHeader">
+          <div>
+            <h2 id="applyTitle">Application</h2>
+            <p>
+              Fill this out in ~3 minutes. The more specific you are, the faster I can give you a clean quote + timeline.
+              (You can paste links — private/unlisted is fine.)
+            </p>
+          </div>
+          <div class="pill" aria-label="No spam policy"><b>No spam.</b> Only project replies.</div>
+        </div>
+
+        <div class="panelBody">
+          <form id="appForm" novalidate>
+            <div class="grid2">
+              <div>
+                <label for="artistName">Artist name</label>
+                <div class="field">
+                  <input id="artistName" name="artistName" autocomplete="name" placeholder="e.g., Jae Nova" required />
+                </div>
+              </div>
+              <div>
+                <label for="email">Email</label>
+                <div class="field">
+                  <input id="email" name="email" type="email" autocomplete="email" placeholder="you@email.com" required />
+                </div>
+              </div>
+            </div>
+
+            <div class="grid2">
+              <div>
+                <label for="location">Location / time zone (optional)</label>
+                <div class="field">
+                  <input id="location" name="location" placeholder="e.g., LA (PST) / London (GMT)" />
+                </div>
+              </div>
+              <div>
+                <label for="handle">IG/TikTok/Artist handle (optional)</label>
+                <div class="field">
+                  <input id="handle" name="handle" placeholder="@yourhandle" />
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label>What do you want help with?</label>
+              <div class="chips" role="group" aria-label="Services requested">
+                <label class="chip"><input type="checkbox" name="services" value="Production partnership" /><i aria-hidden="true"></i>Production partnership</label>
+                <label class="chip"><input type="checkbox" name="services" value="Mixing" /><i aria-hidden="true"></i>Mixing</label>
+                <label class="chip"><input type="checkbox" name="services" value="Mix + Master" /><i aria-hidden="true"></i>Mix + Master</label>
+                <label class="chip"><input type="checkbox" name="services" value="Vocal production" /><i aria-hidden="true"></i>Vocal production</label>
+                <label class="chip"><input type="checkbox" name="services" value="Beat selection / sound direction" /><i aria-hidden="true"></i>Sound direction</label>
+              </div>
+              <div class="hint">Pick all that apply. If you’re unsure, pick the closest and describe it below.</div>
+            </div>
+
+            <div class="grid2">
+              <div>
+                <label for="stage">Where is the song right now?</label>
+                <div class="field">
+                  <select id="stage" name="stage" required>
+                    <option value="" selected disabled>Select one</option>
+                    <option>Idea / voice memo</option>
+                    <option>Rough demo recorded</option>
+                    <option>Tracked vocals, needs production</option>
+                    <option>Needs mix (stems ready)</option>
+                    <option>Needs mix + master (stems ready)</option>
+                    <option>Needs revisions / polish before release</option>
+                  </select>
+                </div>
+              </div>
+              <div>
+                <label for="timeline">Timeline</label>
+                <div class="field">
+                  <select id="timeline" name="timeline" required>
+                    <option value="" selected disabled>Select one</option>
+                    <option>ASAP (1–3 days)</option>
+                    <option>1 week</option>
+                    <option>2 weeks</option>
+                    <option>3–4 weeks</option>
+                    <option>No rush — quality first</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid2">
+              <div>
+                <label for="budget">Budget range</label>
+                <div class="field">
+                  <select id="budget" name="budget" required>
+                    <option value="" selected disabled>Select one</option>
+                    <option>$100–$250</option>
+                    <option>$250–$500</option>
+                    <option>$500–$1,000</option>
+                    <option>$1,000–$2,500</option>
+                    <option>$2,500+</option>
+                    <option>Not sure — need guidance</option>
+                  </select>
+                </div>
+                <div class="hint">No judgment. This helps me recommend the simplest path that still sounds expensive.</div>
+              </div>
+
+              <div>
+                <label for="references">Reference songs (links)</label>
+                <div class="field">
+                  <input id="references" name="references" placeholder="Paste 1–3 links (Spotify/YouTube/SoundCloud)" />
+                </div>
+                <div class="hint">If you have a specific vocal tone, low-end, or vibe you want — link it.</div>
+              </div>
+            </div>
+
+            <div>
+              <label for="links">Your track / stems link</label>
+              <div class="field">
+                <input id="links" name="links" placeholder="Drive/Dropbox/SoundCloud link (private/unlisted ok)" required />
+              </div>
+              <div class="hint">If you don’t have stems yet, send the rough bounce + session details.</div>
+            </div>
+
+            <div class="grid2">
+              <div>
+                <label for="genre">Genre / vibe</label>
+                <div class="field">
+                  <input id="genre" name="genre" placeholder="e.g., alt-R&B, melodic rap, indie pop" required />
+                </div>
+              </div>
+              <div>
+                <label for="deliverables">Deliverables</label>
+                <div class="field">
+                  <select id="deliverables" name="deliverables" required>
+                    <option value="" selected disabled>Select one</option>
+                    <option>1 song</option>
+                    <option>2–3 songs</option>
+                    <option>EP (4–6)</option>
+                    <option>Project (7–12)</option>
+                    <option>Ongoing partnership</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label for="vision">What’s the vision? (be specific)</label>
+              <div class="field">
+                <textarea id="vision" name="vision" placeholder="Tell me what you want the listener to feel. Any issues you already hear? Any non‑negotiables?" required></textarea>
+              </div>
+              <div class="hint">Example: “I want the vocal upfront like SZA, drums tight but not aggressive, and the low-end to hit on car speakers.”</div>
+            </div>
+
+            <div class="grid2">
+              <div>
+                <label for="biggestProblem">What’s your biggest problem right now?</label>
+                <div class="field">
+                  <input id="biggestProblem" name="biggestProblem" placeholder="e.g., vocals muddy, mix not loud, beat too thin" required />
+                </div>
+              </div>
+              <div>
+                <label for="howFound">How did you find me?</label>
+                <div class="field">
+                  <select id="howFound" name="howFound" required>
+                    <option value="" selected disabled>Select one</option>
+                    <option>Instagram</option>
+                    <option>TikTok</option>
+                    <option>YouTube</option>
+                    <option>SoundCloud</option>
+                    <option>Referral</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div style="display:flex; align-items:flex-start; gap:10px; max-width: 78ch;">
+                <div class="field" style="border-radius:14px; padding:0; background: rgba(0,0,0,.12); border:1px solid rgba(243,241,234,.10);">
+                  <label style="display:flex; gap:12px; align-items:flex-start; padding:12px 14px; margin:0; cursor:pointer; text-transform:none; letter-spacing:0; font-size:14px; color: var(--muted); font-weight:520;">
+                    <input id="consent" name="consent" type="checkbox" style="width:18px; height:18px; margin-top:2px;" required />
+                    <span>
+                      I confirm I own / have permission to share these files, and I’m okay with Satorimadeit replying by email.
+                      <span class="mono" style="display:block; margin-top:6px;">Required</span>
+                    </span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="submitRow">
+              <div class="status" id="status" role="status" aria-live="polite">
+                <span class="badge" aria-hidden="true"></span>
+                <span>Complete the form, then hit submit.</span>
+              </div>
+
+              <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                <button class="btn secondary" type="button" id="copyBtn" title="Copy your answers to paste into DM/email">
+                  Copy answers
+                </button>
+                <button class="btn" type="submit" id="submitBtn">
+                  Submit application
+                </button>
+              </div>
+            </div>
+
+            <p class="fine">
+              This page is ready to use as-is. To receive submissions automatically, connect it to your system:
+              (1) replace the submit handler with your Formspree / Google Apps Script endpoint, or
+              (2) keep the “Copy answers” button and have artists DM/email the pasted text.
+            </p>
+          </form>
+        </div>
+      </section>
+
+      <footer>
+        <div class="footGrid">
+          <div>
+            <div class="mono">Satorimadeit • Producer</div>
+            <div style="margin-top:10px; max-width:72ch; line-height:1.55;">
+              Clean collaboration, clear next steps. If you’re serious about the release, this is the fastest way to start.
+            </div>
+          </div>
+          <div class="mono">© <span id="year"></span> • Application Page</div>
+        </div>
+      </footer>
+    </div>
+  </main>
+
+  <script>
+    // Staggered reveal
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const revealEls = Array.from(document.querySelectorAll('.reveal'));
+    if (!prefersReduced) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add('in');
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.14 });
+      revealEls.forEach((el, i) => {
+        el.style.transitionDelay = (i * 90) + 'ms';
+        io.observe(el);
+      });
+    } else {
+      revealEls.forEach(el => el.classList.add('in'));
+    }
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const form = document.getElementById('appForm');
+    const statusEl = document.getElementById('status');
+    const submitBtn = document.getElementById('submitBtn');
+    const copyBtn = document.getElementById('copyBtn');
+
+    function setStatus(type, msg){
+      statusEl.classList.remove('ok','err');
+      if (type) statusEl.classList.add(type);
+      statusEl.querySelector('span:last-child').textContent = msg;
+    }
+
+    function getCheckedValues(name){
+      return Array.from(form.querySelectorAll(`input[name="${name}"]:checked`)).map(i => i.value);
+    }
+
+    function serializePretty(){
+      const data = new FormData(form);
+      const services = getCheckedValues('services');
+      const lines = [
+        `SATORIMADEIT — APPLICATION`,
+        `--------------------------`,
+        `Artist: ${data.get('artistName') || ''}`,
+        `Email: ${data.get('email') || ''}`,
+        `Location/Time zone: ${data.get('location') || ''}`,
+        `Handle: ${data.get('handle') || ''}`,
+        ``,
+        `Services: ${services.length ? services.join(', ') : '(none selected)'}`,
+        `Stage: ${data.get('stage') || ''}`,
+        `Timeline: ${data.get('timeline') || ''}`,
+        `Budget: ${data.get('budget') || ''}`,
+        `Deliverables: ${data.get('deliverables') || ''}`,
+        ``,
+        `Track/Stems link: ${data.get('links') || ''}`,
+        `References: ${data.get('references') || ''}`,
+        `Genre/Vibe: ${data.get('genre') || ''}`,
+        ``,
+        `Vision:`,
+        `${(data.get('vision') || '').toString().trim()}`,
+        ``,
+        `Biggest problem: ${data.get('biggestProblem') || ''}`,
+        `Found via: ${data.get('howFound') || ''}`,
+      ];
+      return lines.join('\n');
+    }
+
+    function validate(){
+      // native validation + ensure at least one service selected
+      const nativeOk = form.checkValidity();
+      const serviceOk = getCheckedValues('services').length > 0;
+
+      // If user didn't choose service, mark visually via status.
+      if (!nativeOk) {
+        setStatus('err', 'Check required fields highlighted by your browser.');
+        return false;
+      }
+      if (!serviceOk){
+        setStatus('err', 'Please select at least one service (mixing, production, etc.).');
+        // focus first chip
+        const firstChip = form.querySelector('.chip');
+        if (firstChip) firstChip.scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth', block:'center' });
+        return false;
+      }
+      setStatus('', 'Looks good. Ready to submit.');
+      return true;
+    }
+
+    form.addEventListener('input', () => {
+      // Soft validate as they type (without being annoying)
+      if (statusEl.classList.contains('err')) {
+        validate();
+      }
+    });
+
+    copyBtn.addEventListener('click', async () => {
+      if (!validate()) return;
+      const text = serializePretty();
+      try{
+        await navigator.clipboard.writeText(text);
+        setStatus('ok', 'Copied. Paste into IG DM, email, or notes.');
+      } catch(e){
+        // fallback
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        setStatus('ok', 'Copied (fallback). Paste into IG DM, email, or notes.');
+      }
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!validate()) return;
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Submitting…';
+      setStatus('', 'Submitting your application…');
+
+      // IMPORTANT:
+      // This demo stores nothing remotely. Connect to a backend by POSTing `FormData` to your endpoint.
+      // Example: Formspree endpoint, Google Apps Script, or your own API.
+      // For now we simulate success and provide a copy-to-send message.
+
+      await new Promise(r => setTimeout(r, 700));
+
+      const payload = serializePretty();
+
+      setStatus('ok', 'Submitted (demo). Use “Copy answers” if you want to send it now.');
+      submitBtn.textContent = 'Submitted';
+
+      // Optional: open mailto prefilled (commented out by default)
+      // window.location.href = `mailto:you@yourdomain.com?subject=${encodeURIComponent('New Application — ' + (new FormData(form).get('artistName')||''))}&body=${encodeURIComponent(payload)}`;
+
+      // Keep button available for copy after submit
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Submit application';
+    });
+  </script>
+</body>
+</html>
